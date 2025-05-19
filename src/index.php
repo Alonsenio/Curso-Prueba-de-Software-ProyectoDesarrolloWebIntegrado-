@@ -34,6 +34,7 @@
     <div class="textoh1">
       <h1>Deportes, Moda y Pasión <br> en Cada Prenda</h1>
       <h2>Ropa de Estilo & Único</h2>
+      <h2>funciona</h2>
       <p>Bienvenido a Sport Solution, tu destino para encontrar la mejor ropa deportiva que se adapte a tu estilo de vida activo.Explora nuestra colección y descubre cómo la moda y el deporte pueden ir de la mano. ¡Únete a la revolución deportiva y elige Sport Solution!</p>
       <a href=#ultimosProductos><button>IR AHORA</button></a>
     </div> 

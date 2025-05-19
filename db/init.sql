@@ -301,8 +301,8 @@ CREATE TABLE `usuarios` (
 --
 
 INSERT INTO `usuarios` (`idusuarios`, `Nombre`, `Correo`, `Usurio`, `Contraseña`, `rol`) VALUES
-(25, 'Mariam', 'mariam@umsm.edu.pe', 'Mariam', '99800b85d3383e3a2fb45eb7d0066a4879a9dad0', 'usuario'),
-(26, 'Alonso', 'U21231837@utp.edu.pe', 'Alonso', '99800b85d3383e3a2fb45eb7d0066a4879a9dad0', 'admin');
+(25, 'Mariam', 'mariam@umsm.edu.pe', 'Mariam', '$2y$10$4PfqydRSPBurSBLdjkYVoeig95UQ9UpI4WVCnXZVCqkKmigYhylI6', 'usuario'),
+(26, 'Alonso', 'U21231837@utp.edu.pe', 'Alonso', '$2y$10$iSj37gBppzLfhRCOfGj2Oe3Vggphe1kcBv5d9mUR7YDVdg0Nx8NdW', 'admin');
 
 --
 -- Índices para tablas volcadas
