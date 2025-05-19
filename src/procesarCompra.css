@@ -1,0 +1,108 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* Tabla */
+.contenedor-todos-products {
+  margin: 40px auto;
+  width: 800px;
+}
+.titu {
+  color: #ffffff;
+  padding: 31px;
+  font-size: 55px;
+  font-weight: 900;
+  text-align: center;
+
+  background-image: url("https://i.pinimg.com/564x/61/6a/64/616a64ae20afc59cb8896a73da6c2dc0.jpg");
+  background-size: contain;
+  border: 2px solid black;
+  border-radius: 8px;
+  text-shadow: 7px 1px 2px black;
+}
+table {
+  margin-top: 40px;
+  border-collapse: collapse;
+  text-align: center;
+  width: 800px;
+}
+thead {
+  background-color: #0a3d62;
+  color: white;
+  border-color: white;
+}
+tbody {
+  background-color: #c0f3ff;
+  border-color: white;
+}
+tfoot {
+  background-color: #3c6382;
+  color: white;
+  text-align: center;
+}
+tr:hover {
+  background-color: #5093ca;
+  color: white;
+}
+.imgProducts {
+  width: 150px;
+  height: 150px;
+  display: block;
+  margin: auto auto;
+}
+/* banner */
+.texto {
+  background-image: url("https://i.pinimg.com/564x/30/ea/d4/30ead4cfbb16ab38860dd75549bfdcd0.jpg");
+
+  background-attachment: fixed;
+  padding: 60px;
+}
+h1 {
+  text-align: center;
+  color: #ff7b00;
+  font-size: 40px;
+}
+h2 {
+  text-align: center;
+  color: rgb(255, 255, 255);
+  font-size: 30px;
+}
+.linea {
+  margin-top: 200px;
+  width: 100px;
+  margin: 20px auto;
+  border: 1px solid #ff7b00;
+}
+.con {
+  margin-top: 20px;
+  display: flex;
+  justify-content: center;
+  margin-left: auto;
+  margin-right: auto;
+  border: none;
+  border-radius: 20px;
+  padding: 10px 50px;
+  background-color: #000;
+  color: #fff;
+  box-shadow: 0 2px 20px rgba(0, 0, 0, 0.5);
+  transition: 0.1s;
+}
+.con:hover {
+  background-color: #00bbc9d2;
+  color: #ffffff;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+}
+#paypal-button-container {
+  margin: 0px 250px;
+  margin-bottom: 40px;
+}
+.card {
+  margin: 40px auto;
+  width: 900px;
+  border: 1px solid #ffffff;
+  border-radius: 8px; /* Borde redondeado */
+  box-shadow: 0 2px 4px rgba(4, 3, 3, 0.5); /* Sombra */
+  background-color: #ffffff; /* Color de fondo */
+}

@@ -1,0 +1,64 @@
+version: '3.8'
+
+services:
+  web:
+    build: .
+    container_name: tienda_php
+    ports:
+      - "8080:80"
+    depends_on:
+      - db
+    networks:
+      - mi_red
+    volumes:
+      - ./src:/var/www/html
+    restart: unless-stopped
+    env_file:
+      - .env
+
+  db:
+    image: mysql:8
+    container_name: servidor_mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: tiendaderopadeportiva
+      MYSQL_USER: alonso
+      MYSQL_PASSWORD: "@Docker"
+    networks:
+      - mi_red
+    ports:
+      - "3306:3306"
+    volumes:
+      - mysql_data:/var/lib/mysql
+      - ./db:/docker-entrypoint-initdb.d
+    restart: unless-stopped
+
+  jenkins:
+    image: jenkins/jenkins:lts
+    container_name: servidor_jenkins
+    ports:
+      - "9090:8080"
+    networks:
+      - mi_red
+    volumes:
+      - ./jenkins:/var/jenkins_home
+    restart: unless-stopped
+
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin
+    container_name: servidor_phpmyadmin
+    ports:
+      - "8081:80"
+    environment:
+      PMA_HOST: servidor_mysql
+      PMA_PORT: 3306
+      MYSQL_ROOT_PASSWORD: root
+    depends_on:
+      - db
+    networks:
+      - mi_red
+    restart: unless-stopped
+
+networks:
+  mi_red:
+    driver: bridge
