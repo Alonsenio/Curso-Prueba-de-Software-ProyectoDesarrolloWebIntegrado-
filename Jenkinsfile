@@ -16,5 +16,10 @@ pipeline {
                 sh 'docker-compose up -d'
             }
         }
+        stage('Ejecutar Pruebas Selenium') {
+            steps {
+                sh 'mvn test -Dselenium.grid.url=http://selenium_grid:4444/wd/hub'
+            }
+        }
     }
 }
