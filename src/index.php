@@ -138,7 +138,7 @@
   <section class="contenedor-contacto">
         <div class="contacto">
           <div class="Formulario-Contacto">
-              <form class="contac" action="https://formsubmit.co/sportsolutions2306@gmail.com" method="POST">
+              <form id="FormularioContacto" class="contac" action="https://formsubmit.co/sportsolutions2306@gmail.com" method="POST" >
 
                 <input type="text" id="nombre" name="nombre" required placeholder="nombre" ><br><br>
                 <input type="email" id="email" name="email" required placeholder="email" ><br><br>
@@ -162,6 +162,32 @@
   <!-- javascript -->
   <script src="index.js"></script>
   <script>
+  document.getElementById('FormularioContacto').addEventListener('submit', function(e) {
+  e.preventDefault(); // Evitar envío tradicional
+
+  const form = e.target;
+  const formData = new FormData(form);
+
+  fetch(form.action, {
+    method: form.method,
+    body: formData,
+    headers: {
+      'Accept': 'application/json'
+    }
+  })
+  .then(response => {
+    if (response.ok) {
+      alert('Mensaje enviado con éxito');
+      form.reset(); // opcional, para limpiar el formulario
+    } else {
+      alert('Error al enviar el mensaje');
+    }
+  })
+  .catch(error => {
+    alert('Error en la conexión');
+    console.error(error);
+  });
+});
 
   const carritoDatas = JSON.parse(localStorage.getItem("carritoProductos2"));
   console.log("Datos del LocalStorage:", carritoDatas);
@@ -195,6 +221,8 @@
     additionalInfo.style.display = 'block';
     showMoreButton.style.display = 'none';
   });
+
+
   </script>
 
 </body>

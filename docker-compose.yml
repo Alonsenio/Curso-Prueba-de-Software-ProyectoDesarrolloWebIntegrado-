@@ -1,68 +1,83 @@
-services:
-  web:
-    build: .
-    container_name: tienda_php
-    ports:
-      - "8080:80"
-    depends_on:
-      - db
-    networks:
-      - mi_red
-    volumes:
-      - ./src:/var/www/html
-    restart: unless-stopped
+  services:
+    web:
+      build: .
+      container_name: tienda_php
+      ports:
+        - "8080:80"
+      depends_on:
+        - db
+      networks:
+        - mi_redx
+      volumes:
+        - ./src:/var/www/html
+      restart: unless-stopped
 
-  db:
-    image: mysql:8
-    container_name: servidor_mysql
-    environment:
-      MYSQL_ROOT_PASSWORD: root
-      MYSQL_DATABASE: tiendaderopadeportiva
-      MYSQL_USER: alonso
-      MYSQL_PASSWORD: "@Docker"
-    networks:
-      - mi_red
-    ports:
-      - "3306:3306"
-    volumes:
-      - ./db:/docker-entrypoint-initdb.d
-    restart: unless-stopped
+    db:
+      image: mysql:8
+      container_name: servidor_mysql
+      environment:
+        MYSQL_ROOT_PASSWORD: root
+        MYSQL_DATABASE: tiendaderopadeportiva
+        MYSQL_USER: alonso
+        MYSQL_PASSWORD: "@Docker"
+      networks:
+        - mi_red
+      ports:
+        - "3306:3306"
+      volumes:
+        - ./db:/docker-entrypoint-initdb.d
+      restart: unless-stopped
 
-  jenkins:
-    image: jenkins/jenkins:lts
-    container_name: servidor_jenkins
-    ports:
-      - "9090:8080"
-    networks:
-      - mi_red
-    volumes:
-      - ./jenkins:/var/jenkins_home
-    restart: unless-stopped
+    jenkins:
+      image: jenkins/jenkins:lts
+      container_name: servidor_jenkins
+      ports:
+        - "9090:8080"
+      networks:
+        - mi_red
+      volumes:
+        - ./jenkins:/var/jenkins_home
+      restart: unless-stopped
 
-  phpmyadmin:
-    image: phpmyadmin/phpmyadmin
-    container_name: servidor_phpmyadmin
-    ports:
-      - "8081:80"
-    environment:
-      PMA_HOST: servidor_mysql
-      PMA_PORT: 3306
-      MYSQL_ROOT_PASSWORD: root
-    depends_on:
-      - db
-    networks:
-      - mi_red
-    restart: unless-stopped
-  
-  selenium:
-    image: selenium/standalone-chrome
-    container_name: selenium_grid
-    ports:
-      - "4444:4444"
-    networks:
-      - mi_red
-    restart: unless-stopped
+    phpmyadmin:
+      image: phpmyadmin/phpmyadmin
+      container_name: servidor_phpmyadmin
+      ports:
+        - "8081:80"
+      environment:
+        PMA_HOST: servidor_mysql
+        PMA_PORT: 3306
+        MYSQL_ROOT_PASSWORD: root
+      depends_on:
+        - db
+      networks:
+        - mi_red
+      restart: unless-stopped
+    
+    selenium:
+      image: selenium/standalone-chrome:latest
+      container_name: selenium_grid
+      ports:
+        - "4444:4444"
+      networks:
+        - mi_red
+      shm_size: 2g
+      restart: unless-stopped
+    
+    tester:
+      image: python:3.12
+      container_name: selenium_tester
+      volumes:
+        - .:/code
+      working_dir: /code
+      networks:
+        - mi_red
+      depends_on:
+        - selenium
+        - web
+      command: >
+        sh -c "pip install selenium unittest-xml-reporting && python3 test_selenium.py"
 
-networks:
-  mi_red:
-    driver: bridge
+  networks:
+    mi_red:
+      driver: bridge

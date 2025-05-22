@@ -16,10 +16,16 @@ pipeline {
                 sh 'docker-compose up -d'
             }
         }
-        stage('Ejecutar Pruebas Selenium') {
+        stage('Ejecutar pruebas Selenium') {
             steps {
-                sh 'mvn test -Dselenium.grid.url=http://selenium_grid:4444/wd/hub'
+                sh 'docker-compose run --rm tester'
             }
+        }
+    }
+    post {
+        always {
+            junit 'test-reports/*.xml'
+            archiveArtifacts artifacts: 'screenshots/*.png', fingerprint: true
         }
     }
 }
