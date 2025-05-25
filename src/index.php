@@ -132,53 +132,60 @@
 
     
   </section>
-  
-  <div id="mensajeEnviado" style="display:none; color: green; font-weight: bold; margin-top: 20px;">
-  ✅ ¡Mensaje enviado correctamente!
-  </div>
+
   <!-- Contacto -->
   <div  class="titu" id="contac"><h1>Contacte con <span>Nosotros</span></h1></div>
   <section class="contenedor-contacto">
         <div class="contacto">
           <div class="Formulario-Contacto">
-              <form id="FormularioContacto" class="contac" action="https://formsubmit.co/sportsolutions2306@gmail.com" method="POST" >
+              <form id="FormularioContacto" class="contac" action="https://formsubmit.co/8f22deef04cbd42466b14d1905577519" method="POST" >
 
                 <input type="text" id="nombre" name="nombre" required placeholder="nombre" ><br><br>
                 <input type="email" id="email" name="email" required placeholder="email" ><br><br>
                 <input type="text" id="telefono" name="telefono" pattern="[0-9]{9}" placeholder="número" required><br><br>
                 <textarea id="mensaje" name="mensaje" rows="4" required placeholder="mensaje" ></textarea><br><br>
                 <button class="con">Enviar</button>
-                <input type="hidden" name="_next" value="about:blank">
+                <input type="hidden" name="_next" value="">
                 <input type="hidden" name="_captcha" value="false">
               </form>
-              <iframe name="dummyframe" style="display:none;"></iframe>
           </div>
           <div class="imgContacto">
             <img src="https://img.freepik.com/vector-gratis/atletas-llevando-diferentes-iconos-deporte_53876-66183.jpg?w=740&t=st=1696122393~exp=1696122993~hmac=3fb28e2f33b48d6833f5c70235661e5e05ecfcc1ffda00d1b717235cae5113d1" alt="">
           </div>
         </div>
   </section>
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    const form = document.getElementById("FormularioContacto");
+    const nextInput = form.querySelector('input[name="_next"]');
 
+    // Detectar si estamos en Docker (ej: hostname es "web") o en localhost
+    const hostname = window.location.hostname;
 
+    // Determina la URL de redirección basada en el entorno
+    let redirectURL = "";
+    if (hostname === "localhost") {
+      redirectURL = "http://localhost:8080/?mensaje=enviado";
+    } else if (hostname === "web") {
+      redirectURL = "http://web/index.php/?mensaje=enviado";
+    } else {
+      // Default para producción u otro entorno
+      redirectURL = window.location.origin + "/?mensaje=enviado";
+    }
 
-
+    // Actualizar el input hidden
+    nextInput.value = redirectURL;
+  });
+</script>
 
   <!-- javascript -->
   <script src="index.js"></script>
   <script>
-  document.getElementById('FormularioContacto').addEventListener('submit', function(e) {
-    // Espera a que el formulario se procese
-    setTimeout(function () {
-      // Limpia los campos
-      e.target.reset();
-      // Muestra el mensaje
-      document.getElementById('mensajeEnviado').style.display = 'block';
-      // Oculta el mensaje después de unos segundos (opcional)
-      setTimeout(() => {
-        document.getElementById('mensajeEnviado').style.display = 'none';
-      }, 5000);
-    }, 1000); // Espera 1 segundo para que FormSubmit procese
-  });
+    
+  const params = new URLSearchParams(window.location.search);
+  if (params.get("mensaje") === "enviado") {
+    alert("¡Tu mensaje ha sido enviado con éxito!");
+  }
 
   const carritoDatas = JSON.parse(localStorage.getItem("carritoProductos2"));
   console.log("Datos del LocalStorage:", carritoDatas);

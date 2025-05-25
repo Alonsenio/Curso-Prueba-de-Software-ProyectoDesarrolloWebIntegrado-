@@ -1,72 +1,96 @@
 import unittest
 from selenium import webdriver
-from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.common.by import By
+from selenium.webdriver.chrome.options import Options
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
 import time
-import os
-import xmlrunner
 
-class TestWebApp(unittest.TestCase):
+class PruebasWeb(unittest.TestCase):
+
     def setUp(self):
         options = Options()
-        options.add_argument("--headless")
+        options.add_argument("--headless")  # Ejecutar sin interfaz gráfica
         options.add_argument("--no-sandbox")
         options.add_argument("--disable-dev-shm-usage")
+
         self.driver = webdriver.Remote(
             command_executor='http://selenium:4444/wd/hub',
             options=options
         )
-        os.makedirs("screenshots", exist_ok=True)
 
-    def test_homepage_title(self):
+    def test_login_usuario_valido(self):
+        driver = self.driver
+        driver.get("http://web/Login/index.php")
+
+        # Ingresar credenciales válidas
+        driver.find_element(By.NAME, "user").send_keys("Mariam") 
+        driver.find_element(By.NAME, "pass").send_keys("hola")    
+
+        # Enviar el formulario
+        driver.find_element(By.CSS_SELECTOR, "button[type='submit']").click()
+
+        # Esperar redirección a index o admin
+        WebDriverWait(driver, 10).until(
+            lambda d: "index.php" in d.current_url or "Admin.php" in d.current_url
+        )
+
+        current_url = driver.current_url
+        print(f"🌐 Redirigido a: {current_url}")
+
+        self.assertTrue("index.php" in current_url or "Admin.php" in current_url,
+                        "❌ No se redirigió correctamente tras login.")
+        print("✔ Login exitoso y redirección detectada.")
+
+    def test_login_invalido(self):
+        driver = self.driver
+        driver.get("http://web/Login/index.php")
+
+        # Ingresar datos incorrectos
+        driver.find_element(By.NAME, "user").send_keys("Alonso")
+        driver.find_element(By.NAME, "pass").send_keys("hola123")
+        driver.find_element(By.CSS_SELECTOR, "button[type='submit']").click()
+
         try:
-            self.driver.get("http://web")
-            time.sleep(5)  # espera que cargue bien
-            self.assertIn("Sport Solutions", self.driver.title)
-        except Exception as e:
-            timestamp = time.strftime("%Y%m%d-%H%M%S")
-            self.driver.save_screenshot(f"screenshots/failure-homepage-{timestamp}.png")
-            raise e
+            # Esperar que aparezca un alert (por contraseña incorrecta)
+            WebDriverWait(driver, 3).until(EC.alert_is_present())
+            alert = driver.switch_to.alert
+            alert_text = alert.text
 
-    def test_contact_form_fields_present(self):
+            self.assertIn("Incorrecta", alert_text)
+            alert.accept()
+            print("✔ Alerta de error de login detectada correctamente.")
+        except Exception as e:
+            self.fail(f"❌ No se detectó alerta de error de login: {e}")
+
+    def test_envio_formulario_contacto(self):
+        driver = self.driver
+        driver.get("http://web/index.php")  
+
+        time.sleep(2)  
+
+        driver.find_element(By.ID, "nombre").send_keys("José Alonso")
+        driver.find_element(By.ID, "email").send_keys("alonso@gmail.com")
+        driver.find_element(By.ID, "telefono").send_keys("987654321")
+        driver.find_element(By.ID, "mensaje").send_keys("Necesito más información de las zapatillas Nike.")
+        driver.find_element(By.CSS_SELECTOR, "form#FormularioContacto button").click()
+
         try:
-            self.driver.get("http://web#contac")  # va directo al apartado contacto
-            time.sleep(2)
-            # Verifica que existan los campos básicos
-            self.assertTrue(self.driver.find_element(By.ID, "nombre").is_displayed())
-            self.assertTrue(self.driver.find_element(By.ID, "email").is_displayed())
-            self.assertTrue(self.driver.find_element(By.ID, "telefono").is_displayed())
-            self.assertTrue(self.driver.find_element(By.ID, "mensaje").is_displayed())
-        except Exception as e:
-            timestamp = time.strftime("%Y%m%d-%H%M%S")
-            self.driver.save_screenshot(f"screenshots/failure-contactfields-{timestamp}.png")
-            raise e
+            # Esperar la alerta de confirmación
+            WebDriverWait(driver, 10).until(EC.alert_is_present())
 
-    def test_contact_form_submission(self):
-        try:
-            self.driver.get("http://web#contac")
-            time.sleep(2)
-            # Rellenar formulario
-            self.driver.find_element(By.ID, "nombre").send_keys("Alonso Lucas")
-            self.driver.find_element(By.ID, "email").send_keys("jalonsolucasr@gmail.com")
-            self.driver.find_element(By.ID, "telefono").send_keys("964851995")
-            self.driver.find_element(By.ID, "mensaje").send_keys("Me interesa mucho sus productos, pienso comprar muchos y esperaba una oferta especial")
+            alert = driver.switch_to.alert
+            alert_text = alert.text
 
-            # Click en el botón enviar
-            self.driver.find_element(By.CSS_SELECTOR, "button.con").click()
-            
-            # Esperamos a que redirija (según tu formulario al localhost:8080)
-            time.sleep(5)
-            # Verificamos que la URL haya cambiado a la página esperada después de enviar
-            current_url = self.driver.current_url
-            self.assertEqual(current_url, "http://localhost:8080/")
+            self.assertEqual(alert_text, "¡Tu mensaje ha sido enviado con éxito!")
+            alert.accept()
+
+            print("✔ Formulario enviado y alerta confirmada correctamente.")
         except Exception as e:
-            timestamp = time.strftime("%Y%m%d-%H%M%S")
-            self.driver.save_screenshot(f"screenshots/failure-submitform-{timestamp}.png")
-            raise e
+            self.fail(f"❌ No apareció el alert de confirmación: {e}")
 
     def tearDown(self):
         self.driver.quit()
 
-if __name__ == '__main__':
-    unittest.main(testRunner=xmlrunner.XMLTestRunner(output='test-reports'))
+if __name__ == "__main__":
+    unittest.main()

@@ -26,7 +26,6 @@ if(isset($_POST["registrar"])){
 	}
 }
 /* Login */
-/* Login */
 if (!empty($_POST)) {
     $usuario2 = mysqli_real_escape_string($conexion, $_POST["user"]);
     $contra = mysqli_real_escape_string($conexion, $_POST["pass"]);

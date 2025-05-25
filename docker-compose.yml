@@ -53,7 +53,7 @@
       networks:
         - mi_red
       restart: unless-stopped
-    
+
     selenium:
       image: selenium/standalone-chrome:latest
       container_name: selenium_grid
@@ -63,12 +63,12 @@
         - mi_red
       shm_size: 2g
       restart: unless-stopped
-    
+
     tester:
       image: python:3.12
       container_name: selenium_tester
       volumes:
-        - .:/code5
+        - .:/code
       working_dir: /code
       networks:
         - mi_red
@@ -77,7 +77,7 @@
         - web
       command: >
         sh -c "pip install selenium unittest-xml-reporting && python3 test_selenium.py"
-
+    
   networks:
     mi_red:
       driver: bridge
