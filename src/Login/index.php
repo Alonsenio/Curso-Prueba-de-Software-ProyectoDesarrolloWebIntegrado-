@@ -250,7 +250,9 @@ require '../PhpMailer/SMTP.php';
 		<p>Ingresa los datos solicitados acontinuacion: </p>
 
 		<!-- Formulario para regitrar usuario nuevo -->
-		<form action="<?php $_SERVER["PHP_SELF"]; ?>" method="POST" >
+		<!-- AQUI -->
+		<!-- id="registro" -->
+		<form id="registro" action="<?php $_SERVER["PHP_SELF"]; ?>" method="POST" >
 			<fieldset>
 			            <label class="block clearfix">
 					<span class="block input-icon input-icon-right">
