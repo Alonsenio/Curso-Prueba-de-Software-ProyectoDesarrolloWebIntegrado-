@@ -1,8 +1,6 @@
 if exists("pagina_principal.png", 30):
     
-    click("txt.png", 30)
-    
-    type(Key.PAGE_DOWN*5)
+    click(Pattern("contacto.png").targetOffset(58,2))
     
     click(Pattern("nombre.png").targetOffset(-392,0), 30)
     
@@ -20,5 +18,5 @@ if exists("pagina_principal.png", 30):
     
     type ('minimo un 20')
     
-    click(Pattern("enviar.png").targetOffset(-775,-23), 30)
+    click(Pattern("enviar.png").targetOffset(-775,-23))
 

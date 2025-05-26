@@ -1,18 +1,18 @@
 if exists("pagina_principal.png", 30):
 
 
-    click("usuario.png")
+    click(Pattern("inicio_sesion.png").targetOffset(197,-3))
 
 
-    click(Pattern("ingresar_usuario.png").similar(0.85))
+    click(Pattern("usuario.png").targetOffset(0,34), 30)
     type ('alonso')
 
 
-    click(Pattern("ingresar_contrasena.png").similar(0.85), 30)
+    click(Pattern("contrasena.png").targetOffset(-7,-42), 30)
     
     type ('hola')
 
-    click(Pattern("aceptar.png").similar(0.85))
+    click(Pattern("aceptar.png").targetOffset(-168,-10), 30)
 
 
     click("ingresar.png")
