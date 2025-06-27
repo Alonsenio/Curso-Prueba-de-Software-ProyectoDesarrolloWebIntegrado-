@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<html>
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<title>ZAP por Informe de Escaneo Checkmarx</title>
+
+<script src="High-Level-Report-Sample/Chart.min.js" type="text/javascript"></script>
+<script src="High-Level-Report-Sample/main.js"
+	type="text/javascript"></script>
+<link rel="stylesheet" href="High-Level-Report-Sample/Chart.min.css">
+<!-- CSS only -->
+
+<link rel="stylesheet" href="High-Level-Report-Sample/main.css">
+<link rel="stylesheet" href="High-Level-Report-Sample/bootstrap.min.css">
+<link rel="stylesheet" href="High-Level-Report-Sample/normalize.css">
+
+</head>
+<body>
+	<!-- Header material for report template -->
+	<div class="container">
+		<div class="row"></div>
+		<div class="row">
+			<div class="mx-auto" style="width: 50%;">
+				
+					<h1>
+						<!-- The ZAP Logo -->
+						<img src="High-Level-Report-Sample/zap-by-checkmarx.png" alt="">
+						<th>ZAP por Informe de Escaneo Checkmarx</th>
+					</h1>
+				
+			</div>
+		</div>
+		<div class="row"></div>
+		<div class="row">
+			<em
+				class="text-right">Generado a vie, 27 jun 2025 04:23:47</em> <em
+				class="text-right">ZAP Versión: 2.16.1</em> <em> ZAP by <a
+				href="https://checkmarx.com/">Checkmarx</a>
+			</em>
+		</div>
+	</div>
+	<p></p>
+
+	<!-- Description, and first row of charts-->
+	<div class="container ">
+		
+
+
+
+			<div class="row">
+				<div class="col-md-2 col-lg-2 col-sm-3 col-xs-12">
+					<div class="row">
+						<p></p>
+					</div>
+					<div class="row border-bottom">
+						<b>Most Severe Alert</b> <br>  <span
+							class="risk-2">Medium</span>  <span
+							class="risk-0">Informational</span>
+					</div>
+
+				</div>
+
+
+				
+					<th>
+						<div class="col-md-5 col-lg-5 col-sm-9 col-xs-12 piChartWrapper">
+							<canvas class="styled_canvas" id="summaryChart" width="100%"
+								height="100%"></canvas>
+						</div>
+					</th>
+				
+
+				<script type="text/javascript">
+                    /*<![CDATA[*/
+                    var title = "Vulnerability Severity";
+                    var labels = [
+                    "Alto",
+                    "Medio",
+                    "Bajo",
+                    "Informativo"];
+                    var data = [
+                    null,
+                    1,
+                    null,
+                    3];
+                    /*]]>*/
+
+                    renderSummaryChart(title, labels, data);
+                </script>
+
+				
+
+
+					
+
+				
+
+			</div>
+		
+
+	</div>
+	<p></p>
+	<div class="container left_right_borders">
+		<div class="row">
+
+			<div class="col-md-2 col-lg-3 col-sm-6 col-xs-12">
+				<div class="row">
+					<p></p>
+				</div>
+				<div class="row border-bottom">
+					<b>Most Common Bug</b><br>
+					<span id="common_bug"></span>
+				</div>
+				<div class="row"></div>
+			</div>
+
+			
+				<div
+					class="col-md-10 col-lg-9 col-sm-12 col-xs-12 horizontalBarChartWrapper">
+					<canvas class="styled_canvas" id="summaryChartBugs" width="100%"
+						height="50%"></canvas>
+				</div>
+			
+			<script type="text/javascript">
+                initializeSummaryBugsChartRender();
+            </script>
+			<script type="text/javascript">
+                    /*<![CDATA[*/
+                    bugs_count = 1485;
+                    bugs_label = "CSP: Failure to Define Directive with No Fallback";
+                    risk = "Medio";
+                    bugs_color = ""
+                    if (risk === "High") {
+                        bugs_color = "red";
+                    } else if (risk === "Medium") {
+                        bugs_color = "orange";
+                    } else if (risk === "Low") {
+                        bugs_color = "yellow";
+                    } else {
+                        bugs_color = "blue";
+                    }
+                    if (bugs_count > highest_count) {
+                        highest_count = bugs_count;
+                        most_common_bug = bugs_label;
+                        most_common_bug_color = bugs_color;
+                        document.getElementById('common_bug').innerText = most_common_bug
+                                + ' (' + bugs_count + ')';
+                    }
+                    all_bugs_count.push(bugs_count)
+                    all_colors.push(bugs_color)
+                    all_labels.push(bugs_label)
+                    /*]]>*/
+                </script><script type="text/javascript">
+                    /*<![CDATA[*/
+                    bugs_count = 4468;
+                    bugs_label = "Atributo de elemento HTML controlable por el usuario (XSS potencial)";
+                    risk = "Informativo";
+                    bugs_color = ""
+                    if (risk === "High") {
+                        bugs_color = "red";
+                    } else if (risk === "Medium") {
+                        bugs_color = "orange";
+                    } else if (risk === "Low") {
+                        bugs_color = "yellow";
+                    } else {
+                        bugs_color = "blue";
+                    }
+                    if (bugs_count > highest_count) {
+                        highest_count = bugs_count;
+                        most_common_bug = bugs_label;
+                        most_common_bug_color = bugs_color;
+                        document.getElementById('common_bug').innerText = most_common_bug
+                                + ' (' + bugs_count + ')';
+                    }
+                    all_bugs_count.push(bugs_count)
+                    all_colors.push(bugs_color)
+                    all_labels.push(bugs_label)
+                    /*]]>*/
+                </script><script type="text/javascript">
+                    /*<![CDATA[*/
+                    bugs_count = 43;
+                    bugs_label = "Divulgaci\u00F3n de Informaci\u00F3n - Informaci\u00F3n sensible en URL";
+                    risk = "Informativo";
+                    bugs_color = ""
+                    if (risk === "High") {
+                        bugs_color = "red";
+                    } else if (risk === "Medium") {
+                        bugs_color = "orange";
+                    } else if (risk === "Low") {
+                        bugs_color = "yellow";
+                    } else {
+                        bugs_color = "blue";
+                    }
+                    if (bugs_count > highest_count) {
+                        highest_count = bugs_count;
+                        most_common_bug = bugs_label;
+                        most_common_bug_color = bugs_color;
+                        document.getElementById('common_bug').innerText = most_common_bug
+                                + ' (' + bugs_count + ')';
+                    }
+                    all_bugs_count.push(bugs_count)
+                    all_colors.push(bugs_color)
+                    all_labels.push(bugs_label)
+                    /*]]>*/
+                </script><script type="text/javascript">
+                    /*<![CDATA[*/
+                    bugs_count = 2;
+                    bugs_label = "Petici\u00F3n de Autenticaci\u00F3n Identificada";
+                    risk = "Informativo";
+                    bugs_color = ""
+                    if (risk === "High") {
+                        bugs_color = "red";
+                    } else if (risk === "Medium") {
+                        bugs_color = "orange";
+                    } else if (risk === "Low") {
+                        bugs_color = "yellow";
+                    } else {
+                        bugs_color = "blue";
+                    }
+                    if (bugs_count > highest_count) {
+                        highest_count = bugs_count;
+                        most_common_bug = bugs_label;
+                        most_common_bug_color = bugs_color;
+                        document.getElementById('common_bug').innerText = most_common_bug
+                                + ' (' + bugs_count + ')';
+                    }
+                    all_bugs_count.push(bugs_count)
+                    all_colors.push(bugs_color)
+                    all_labels.push(bugs_label)
+                    /*]]>*/
+                </script>
+			<script type="text/javascript">
+                title = "Count of Vulnerability Occurrences";
+                class_of_most_common_bug = ''
+                if (most_common_bug_color === 'red')
+                    new_class = 'risk-3'
+                else if (most_common_bug_color === 'orange')
+                    new_class = 'risk-2'
+                else if (most_common_bug_color === 'yellow')
+                    new_class = 'risk-1'
+                else if (most_common_bug_color === 'blue')
+                    new_class = 'risk-0'
+                document.getElementById('common_bug').classList.add(new_class);
+                renderSummaryBugsChart(title, all_labels, all_bugs_count,
+                        all_colors);
+            </script>
+			<p></p>
+		</div>
+	</div>
+	<p></p>
+
+	<div class="container">
+
+		
+			<div class="row">
+
+				<h3>Vulnerability Impact</h3>
+				<table class="alerts table table-hover table-bordered table-striped">
+					<caption>
+						<div>Vulnerability Descriptions</div>
+					</caption>
+					<tr>
+						<th width="5%" align="center" scope="col">#</th>
+						<th width="20%" align="center" scope="col">Name</th>
+						<th width="75%" align="center" scope="col">Impact</th>
+					</tr>
+					
+						
+							<tr>
+
+								
+								
+								
+								
+
+								<td><span>CSP: Failure to Define Directive with No Fallback</span> <span>
+										<a title="Reference 1: https://www.w3.org/TR/CSP/"
+										href="https://www.w3.org/TR/CSP/">[1]</a>
+								</span><span>
+										<a title="Reference 2: https://caniuse.com/#search=content+security+policy"
+										href="https://caniuse.com/#search=content+security+policy">[2]</a>
+								</span><span>
+										<a title="Reference 3: https://content-security-policy.com/"
+										href="https://content-security-policy.com/">[3]</a>
+								</span><span>
+										<a title="Reference 4: https://github.com/HtmlUnit/htmlunit-csp"
+										href="https://github.com/HtmlUnit/htmlunit-csp">[4]</a>
+								</span><span>
+										<a title="Reference 5: https://developers.google.com/web/fundamentals/security/csp#policy_applies_to_a_wide_variety_of_resources"
+										href="https://developers.google.com/web/fundamentals/security/csp#policy_applies_to_a_wide_variety_of_resources">[5]</a>
+								</span></td>
+								<td><span>
+										<div>The Content Security Policy fails to define one of the directives that has no fallback. Missing/excluding them is the same as allowing anything.</div>
+								</span></td>
+							</tr>
+						
+							<tr>
+
+								
+								
+								
+								
+
+								<td><span>Atributo de elemento HTML controlable por el usuario (XSS potencial)</span> <span>
+										<a title="Reference 1: https://cheatsheetseries.owasp.org/cheatsheets/Input_Validation_Cheat_Sheet.html"
+										href="https://cheatsheetseries.owasp.org/cheatsheets/Input_Validation_Cheat_Sheet.html">[1]</a>
+								</span></td>
+								<td><span>
+										<div>Esta comprobación examina la entrada proporcionada por el usuario en parámetros de cadenas de consulta y datos POST para identificar dónde podrían estar controlados ciertos valores de atributos HTML. Esto proporciona detección de puntos calientes para XSS (cross-site scripting) que requerirán una revisión adicional por parte de un analista de seguridad para determinar la explotabilidad.</div>
+								</span></td>
+							</tr>
+						
+							<tr>
+
+								
+								
+								
+								
+
+								<td><span>Divulgación de Información - Información sensible en URL</span> </td>
+								<td><span>
+										<div>La solicitud parecía contener información sensible filtrada en la URL. Esto puede violar las políticas de cumplimiento de PCI y de la mayoría de las organizaciones. Puede configurar la lista de cadenas de esta comprobación para añadir o eliminar valores específicos de su entorno.</div>
+								</span></td>
+							</tr>
+						
+							<tr>
+
+								
+								
+								
+								
+
+								<td><span>Petición de Autenticación Identificada</span> <span>
+										<a title="Reference 1: https://www.zaproxy.org/docs/desktop/addons/authentication-helper/auth-req-id/"
+										href="https://www.zaproxy.org/docs/desktop/addons/authentication-helper/auth-req-id/">[1]</a>
+								</span></td>
+								<td><span>
+										<div>La petición en cuestión se ha identificado como una petición de autenticación. El campo &quot;Otra información&quot; contiene un conjunto de líneas key=vvalue que identifican cualquier campo relevante. Si la solicitud está en un contexto que tiene un método de autenticación configurado como &quot;Detección automática&quot;, esta regla cambiará la autenticación para que coincida con la petición identificada.</div>
+								</span></td>
+							</tr>
+						
+					
+				</table>
+				<div class="spacer-lg"></div>
+			</div>
+		
+	</div>
+
+	<!-- JavaScript Bundle with Popper -->
+	<script src="High-Level-Report-Sample/bootstrap.bundle.min.js" type="text/javascript"></script>
+	<script src="High-Level-Report-Sample/main.js"
+		type="text/javascript"></script>
+</body>
+</html>
+
