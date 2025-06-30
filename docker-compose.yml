@@ -77,6 +77,12 @@
         - web
       command: >
         sh -c "pip install selenium unittest-xml-reporting && python3 test_selenium.py"
+    k6:
+      image: grafana/k6
+      volumes:
+        - ./k6:/scripts
+      networks:
+        - mi_red
     
   networks:
     mi_red:
